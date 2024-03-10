@@ -9,7 +9,7 @@ import { AppHeader } from './cmps/AppHeader.jsx'
 
 export function App() {
 
-    const [page, setPage] = useState('home')
+    const [page, setPage] = useState('book')
     console.log(page)
 
     return <section className="app main-layout">

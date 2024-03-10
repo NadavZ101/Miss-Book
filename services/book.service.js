@@ -2,29 +2,32 @@ import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
 
 const BOOK_KEY = 'bookDB'
-var gFilterBy = { txt: '', minSpeed: 0 }
-_createCars()
+var gFilterBy = { txt: '', price: 0 }
+_createBooks()
 
-export const carService = {
+export const bookService = {
     query,
     get,
     remove,
     save,
     getEmptyBook,
-    getNextCarId,
+    getNextBookId,
     getFilterBy,
     setFilterBy
 }
+
+// For Debugging 
+window.bs = bookService
 
 function query() {
     return storageService.query(BOOK_KEY)
         .then(book => {
             if (gFilterBy.txt) {
-                const regex = new RegExp(gFilterBy.txt, 'i') // UPDATE TO BOOK
-                book = book.filter(book => regex.test(book.vendor))
+                const regex = new RegExp(gFilterBy.txt, 'i')
+                book = book.filter(book => regex.test(book.title))
             }
-            if (gFilterBy.minSpeed) { // UPDATE TO BOOK
-                book = book.filter(book => book.maxSpeed >= gFilterBy.minSpeed)
+            if (gFilterBy.price) {
+                book = book.filter(book => book.maxPrice >= gFilterBy.minPrice)
             }
             return book
         })
@@ -46,10 +49,24 @@ function save(book) {
     }
 }
 
-// UPDATE TO BOOK
-function getEmptyBook(vendor = '', maxSpeed = 0) {
-    return { id: '', vendor, maxSpeed }
+function getEmptyBook(title = '', listPrice = 0) {
+    return { id: '', title, listPrice }
 }
+
+/*  MODAL DATA
+{
+    "id": "OXeMG8wNskc",
+    "title": "metus hendrerit",
+    "description": "placerat nisi sodales suscipit tellus",
+    "thumbnail": “http://coding-academy.org/books-photos/
+    20.jpg",
+    "listPrice": {
+    "amount": 109,
+    "currencyCode": "EUR",
+    "isOnSale": false
+    }
+}
+*/
 
 function getFilterBy() {
     return { ...gFilterBy }
@@ -76,17 +93,32 @@ function _createBooks() {
     if (!book || !book.length) {
         book = []
 
-        // UPDATE TO BOOK
-        book.push(_createBook('audu', 300))
-        book.push(_createBook('fiak', 120))
-        book.push(_createBook('subali', 100))
-        book.push(_createBook('mitsu', 150))
+        // DEMO DATA
+        book.push(_createBook('The Hobbit', 200))
+        book.push(_createBook('Don Quixote', 150))
+        book.push(_createBook('The Lord Of The Rings', 250))
+        book.push(_createBook('1984', 80))
         utilService.saveToStorage(BOOK_KEY, book)
     }
 }
 
-function _createBook(vendor, maxSpeed = 250) {
-    const book = getEmptyBook(vendor, maxSpeed)
+function _createBook(title, listPrice = 120) {
+    const book = getEmptyBook(title, listPrice)
     book.id = utilService.makeId()
     return book
 }
+
+/*
+{
+    "id": "OXeMG8wNskc",
+    "title": "metus hendrerit",
+    "description": "placerat nisi sodales suscipit tellus",
+    "thumbnail": “http://coding-academy.org/books-photos/
+    20.jpg",
+    "listPrice": {
+    "amount": 109,
+    "currencyCode": "EUR",
+    "isOnSale": false
+    }
+}
+*/
