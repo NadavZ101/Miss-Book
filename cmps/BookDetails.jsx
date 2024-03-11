@@ -1,4 +1,7 @@
 
+import { LongTxt } from "./LongTxt.jsx"
+import { utilService } from "../services/util.service.js"
+
 export function BookDetails({ book, onGoBack }) {
     console.log('Book Details: ', book)
 
@@ -26,6 +29,16 @@ export function BookDetails({ book, onGoBack }) {
         else return 'No'
     }
 
+    // function getText() {
+    const txt = utilService.makeLorem()
+    const length = txt.length
+
+    console.log(txt)
+    console.log(length)
+    // }
+
+    // getText()
+
     return <section className="book-details">
         <button onClick={onGoBack}>Go back</button>
 
@@ -42,8 +55,9 @@ export function BookDetails({ book, onGoBack }) {
         <h5>Currency: {book.listPrice.currencyCode}</h5>
         <h5 >Sale: {isOnSale()}</h5>
         <h5>Subtitle: {book.subtitle}</h5>
-
         <img src={book.thumbnail} />
+
+        <LongTxt txt={txt} length={length} />
 
     </section>
 }
