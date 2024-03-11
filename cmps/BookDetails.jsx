@@ -2,19 +2,46 @@
 export function BookDetails({ book, onGoBack }) {
     console.log('Book Details: ', book)
 
+    function setReadingStats() {
+        if (book.pageCount > 500) return 'Serious Reading'
+        else if (book.pageCount > 200) return 'Descent Reading'
+        else if (book.pageCount < 100) return 'Light Reading'
+    }
+
+    function setReadingEra() {
+        const year = new Date().getFullYear()
+        if (year - book.publishedDate > 10) return 'Vintage'
+        else if (year - book.publishedDate < 1) return 'New'
+    }
+
+    function setPriceClass() {
+        console.log(book.listPrice.amount)
+        if (book.listPrice.amount > 150) return 'expensive'
+        else if (book.listPrice.amount < 20) return 'cheap'
+        else return ''
+    }
+
+    function isOnSale() {
+        if (book.listPrice.isOnSale) return '📣📣📣'
+        else return 'No'
+    }
+
     return <section className="book-details">
         <button onClick={onGoBack}>Go back</button>
 
         <h1>Title: {book.title}</h1>
-        <p>Authors: {book.authors}</p>
-        <p>publishedDate: {book.publishedDate}</p>
-        <p>Description: {book.description}</p>
-        <p>categories: {book.categories}</p>
-        <p>pageCount: {book.pageCount}</p>
-        <p>Price : {book.listPrice.amount}</p>
-        <p>Currency : {book.listPrice.currencyCode}</p>
-        <p>Sale : {book.listPrice.isOnSale}</p>
-        <p>subtitle : {book.subtitle}</p>
+        <h5>Id: {book.id}</h5>
+        <h5>Authors: {book.authors}</h5>
+        <h5>PublishedDate: {book.publishedDate}</h5>
+        <h5>{setReadingEra()}</h5>
+        <h5>Description: {book.description}</h5>
+        <h5>Categories: {book.categories}</h5>
+        <h5>Number of Pages: {book.pageCount}</h5>
+        <h5 className={setPriceClass()}>Price: {book.listPrice.amount}</h5>
+        <h5>{setReadingStats()}</h5>
+        <h5>Currency: {book.listPrice.currencyCode}</h5>
+        <h5 >Sale: {isOnSale()}</h5>
+        <h5>Subtitle: {book.subtitle}</h5>
 
         <img src={book.thumbnail} />
 
