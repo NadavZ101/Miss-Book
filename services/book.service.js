@@ -817,7 +817,18 @@ function addReview(bookId, review) {
     console.log('addReview - bookId', bookId)
     console.log('addReview - review', review)
 
-    // return storageService.put(BOOK_KEY, book)
+    storageService.get(BOOK_KEY, bookId)
+        .then(book => {
+            if (book.review) {
+                book.reviews.push(review)
+            }
+            else {
+                book.reviews = []
+                book.reviews.push(review)
+            }
+            console.log(book)
+            return storageService.put(BOOK_KEY, book)
+        })
 
 }
 
