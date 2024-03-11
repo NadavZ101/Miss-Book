@@ -13,6 +13,8 @@ export const bookService = {
     getEmptyBook,
     getNextBookId,
     getDefaultFilter,
+    getEmptyReview,
+    addReview,
 }
 
 const gBooks = [{
@@ -804,6 +806,19 @@ function _createBook(title, price = 120) {
     const book = getEmptyBook(title, price)
     book.id = utilService.makeId()
     return book
+}
+
+function getEmptyReview(fullname = '', rating = 1, readAt = '') {
+    console.log('getEmptyReview - service')
+    return { fullname, rating, readAt }
+}
+
+function addReview(bookId, review) {
+    console.log('addReview - bookId', bookId)
+    console.log('addReview - review', review)
+
+    // return storageService.put(BOOK_KEY, book)
+
 }
 
 /*

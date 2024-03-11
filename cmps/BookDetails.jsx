@@ -3,6 +3,7 @@ const { useParams, useNavigate } = ReactRouter
 const { useState, useEffect } = React
 
 import { LongTxt } from "./LongTxt.jsx"
+import { AddReview } from "./AddReview.jsx"
 
 import { bookService } from "../services/book.service.js"
 
@@ -84,6 +85,8 @@ export function BookDetails() {
         <img src={book.thumbnail} />
 
         <LongTxt txt={book.description} length={book.description.length} />
+
+        <AddReview book={book} />
 
     </section>
 }
