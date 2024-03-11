@@ -24,7 +24,7 @@ export function BookDetails() {
         bookService.get(params.bookId)
             .then(book => setBook(book))
             .catch(err => {
-                console.log('Had issues loading car', err)
+                console.log('Had issues loading book', err)
             })
     }
 

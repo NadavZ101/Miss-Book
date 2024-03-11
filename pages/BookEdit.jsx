@@ -1,12 +1,28 @@
-const { useState } = React
-const { useParams } = ReactRouter
+const { useState, useEffect } = React
+const { useParams, useNavigate } = ReactRouter
 
 import { bookService } from "../services/book.service.js"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
+
 
 export function BookEdit() {
 
     const [bookToEdit, setBookToEdit] = useState(bookService.getEmptyBook())
     const { bookId } = useParams()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (bookId) loadBook()
+    }, [])
+
+    function loadBook() {
+        bookService.get(bookId)
+            .then(book => setBookToEdit(book))
+            .catch(err => {
+                console.log('Had issues loading book', err)
+                navigate('/book')
+            })
+    }
 
     // the target element which the ev in the form was trigger
     function handleChange({ target }) {
@@ -43,7 +59,8 @@ export function BookEdit() {
                 break
         }
 
-        setBookToEdit(prevBookToEdit => ({ ...prevBookToEdit, listPrice: { amount: value } }))
+        setBookToEdit(prevBookToEdit =>
+            ({ ...prevBookToEdit, listPrice: { amount: value } }))
     }
 
     function onSaveBook(ev) {
@@ -52,6 +69,12 @@ export function BookEdit() {
         bookService.save(bookToEdit)
             .then(savedBook => {
                 console.log('saved Book', savedBook)
+                showSuccessMsg('Book saved successfully')
+                navigate('/book')
+            })
+            .catch(err => {
+                console.log('Had issues saving book', err)
+                showErrorMsg('Could not save book')
             })
     }
 

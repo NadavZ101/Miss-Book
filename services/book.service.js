@@ -413,7 +413,7 @@ function save(book) {
     }
 }
 
-function getEmptyBook(id = '', title = '', subtitle = '', authors = [], publishedDate = 1890, description = '', pageCount = 377, categories = [], thumbnail = '', language = '', listPrice = { amount: 0, currencyCode: '', isOnSale: true }) {
+function getEmptyBook(id = '', title = '', subtitle = '', authors = [], publishedDate = 1890, description = '', pageCount = 377, categories = [], thumbnail = 'assets/img/5.jpg', language = '', listPrice = { amount: 0, currencyCode: '', isOnSale: true }) {
 
     console.log('getEmptyBook - service')
     return { id, title, subtitle, authors, publishedDate, description, pageCount, categories, thumbnail, language, listPrice }
