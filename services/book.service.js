@@ -384,12 +384,15 @@ function query(filterBy = getDefaultFilter()) {
             if (filterBy.minPrice) {
                 book = book.filter(book => book.listPrice.amount >= filterBy.minPrice)
             }
+            if (filterBy.minPageCount) {
+                book = book.filter(book => book.pageCount >= filterBy.minPageCount)
+            }
             return book
         })
 }
 
 function getDefaultFilter() {
-    return { title: '', minPrice: 30 }
+    return { title: '', minPrice: 30, minPageCount: 10 }
 }
 
 function get(bookId) {
@@ -412,30 +415,16 @@ function getEmptyBook(title = '', listPrice = 0) {
     return { id: '', title, listPrice }
 }
 
-/*  MODAL DATA
-{
-    "id": "OXeMG8wNskc",
-    "title": "metus hendrerit",
-    "description": "placerat nisi sodales suscipit tellus",
-    "thumbnail": “http://coding-academy.org/books-photos/
-    20.jpg",
-    "listPrice": {
-    "amount": 109,
-    "currencyCode": "EUR",
-    "isOnSale": false
-    }
-}
-*/
 
 // function getFilterBy() {
 //     return { ...filterBy }
 // }
 
-function setFilterBy(filterBy = {}) {
-    if (filterBy.title !== undefined) gFilterBy.title = filterBy.title
-    if (filterBy.price !== undefined) gFilterBy.price = filterBy.price
-    return filterBy
-}
+// function setFilterBy(filterBy = {}) {
+//     if (filterBy.title !== undefined) gFilterBy.title = filterBy.title
+//     if (filterBy.price !== undefined) gFilterBy.price = filterBy.price
+//     return filterBy
+// }
 
 
 function getNextBookId(bookId) {

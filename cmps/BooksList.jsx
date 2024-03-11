@@ -8,6 +8,7 @@ export function BooksList({ books, onSelectBook }) {
         {
             books.map((book, idx) => <li key={book.id}>
                 <BookPreview book={book} idx={idx} />
+
                 <button className="btn" onClick={() => { onSelectBook(book) }}>Details</button>
 
 

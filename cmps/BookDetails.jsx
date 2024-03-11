@@ -6,15 +6,20 @@ export function BookDetails({ book, onGoBack }) {
     console.log('Book Details: ', book)
 
     function setReadingStats() {
-        if (book.pageCount > 500) return 'Serious Reading'
-        else if (book.pageCount > 200) return 'Descent Reading'
-        else if (book.pageCount < 100) return 'Light Reading'
+        let numOfPages = book.pageCount
+        console.log('numOfPages - ', numOfPages)
+        if (book.pageCount > 500) numOfPages += ' - Serious Reading'
+        else if (book.pageCount > 200) numOfPages += ' - Descent Reading'
+        else if (book.pageCount < 100) numOfPages += ' - Light Reading'
+        return numOfPages
     }
 
     function setReadingEra() {
         const year = new Date().getFullYear()
-        if (year - book.publishedDate > 10) return 'Vintage'
-        else if (year - book.publishedDate < 1) return 'New'
+        let era = book.publishedDate
+        if (year - book.publishedDate > 10) era += ' - Vintage'
+        else if (year - book.publishedDate < 1) era += ' - New'
+        return era
     }
 
     function setPriceClass() {
@@ -24,20 +29,16 @@ export function BookDetails({ book, onGoBack }) {
         else return ''
     }
 
+    function getCategories() {
+        let categories = book.categories.join(', ')
+        return categories
+    }
+    getCategories()
+
     function isOnSale() {
         if (book.listPrice.isOnSale) return '📣📣📣'
         else return 'No'
     }
-
-    // function getText() {
-    const txt = utilService.makeLorem()
-    const length = txt.length
-
-    console.log(txt)
-    console.log(length)
-    // }
-
-    // getText()
 
     return <section className="book-details">
         <button onClick={onGoBack}>Go back</button>
@@ -45,19 +46,17 @@ export function BookDetails({ book, onGoBack }) {
         <h1>Title: {book.title}</h1>
         <h5>Id: {book.id}</h5>
         <h5>Authors: {book.authors}</h5>
-        <h5>PublishedDate: {book.publishedDate}</h5>
-        <h5>{setReadingEra()}</h5>
+        <h5>Published Date: {setReadingEra()}</h5>
         <h5>Description: {book.description}</h5>
-        <h5>Categories: {book.categories}</h5>
-        <h5>Number of Pages: {book.pageCount}</h5>
+        <h5>Categories: {getCategories()}</h5>
+        <h5>Number of Pages: {setReadingStats()}</h5>
         <h5 className={setPriceClass()}>Price: {book.listPrice.amount}</h5>
-        <h5>{setReadingStats()}</h5>
         <h5>Currency: {book.listPrice.currencyCode}</h5>
         <h5 >Sale: {isOnSale()}</h5>
         <h5>Subtitle: {book.subtitle}</h5>
         <img src={book.thumbnail} />
 
-        <LongTxt txt={txt} length={length} />
+        <LongTxt txt={book.description} length={book.description.length} />
 
     </section>
 }

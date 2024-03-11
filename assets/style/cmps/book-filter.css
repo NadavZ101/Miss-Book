@@ -1,0 +1,12 @@
+.book-filter {}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input {
+    height: 1.5em;
+}
