@@ -15,15 +15,15 @@ export function AddReview({ book }) {
         console.log('value ', value)
 
         setReview((prevReviews) => ({ ...prevReviews, [name]: value, }))
-        // ev.preventDefault()
-
-
     }
 
     function onSaveReview(ev) {
         ev.preventDefault()
 
         bookService.addReview(book.id, review)
+            .then(book => {
+                console.log(book)
+            })
     }
 
     const { fullname, rating, readAt } = review

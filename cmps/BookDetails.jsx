@@ -13,9 +13,8 @@ export function BookDetails() {
     const [book, setBook] = useState(null)
     const navigate = useNavigate()
 
-    console.log('params ', params)
-    console.log('book ', book)
-    console.log('useNavigate ', useNavigate)
+    // console.log('params ', params)
+    // console.log('book ', book)
 
     useEffect(() => {
         loadBook()
@@ -35,7 +34,6 @@ export function BookDetails() {
 
     function setReadingStats() {
         let numOfPages = book.pageCount
-        console.log('numOfPages - ', numOfPages)
         if (book.pageCount > 500) numOfPages += ' - Serious Reading'
         else if (book.pageCount > 200) numOfPages += ' - Descent Reading'
         else if (book.pageCount < 100) numOfPages += ' - Light Reading'
@@ -51,7 +49,6 @@ export function BookDetails() {
     }
 
     function setPriceClass() {
-        console.log(book.listPrice.amount)
         if (book.listPrice.amount > 150) return 'expensive'
         else if (book.listPrice.amount < 20) return 'cheap'
         else return ''

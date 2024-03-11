@@ -809,17 +809,17 @@ function _createBook(title, price = 120) {
 }
 
 function getEmptyReview(fullname = '', rating = 1, readAt = '') {
-    console.log('getEmptyReview - service')
     return { fullname, rating, readAt }
 }
 
 function addReview(bookId, review) {
-    console.log('addReview - bookId', bookId)
-    console.log('addReview - review', review)
+    // console.log('addReview - bookId', bookId)
+    // console.log('addReview - review', review)
 
     storageService.get(BOOK_KEY, bookId)
         .then(book => {
-            if (book.review) {
+            if (book.reviews) {
+                console.log('adding review')
                 book.reviews.push(review)
             }
             else {
@@ -827,7 +827,8 @@ function addReview(bookId, review) {
                 book.reviews.push(review)
             }
             console.log(book)
-            return storageService.put(BOOK_KEY, book)
+
+            // return storageService.put(BOOK_KEY, book)
         })
 
 }
