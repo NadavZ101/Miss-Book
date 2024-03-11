@@ -2,12 +2,13 @@
   box-sizing: border-box;
 }
 
-html {
-}
+html {}
 
 body {
   margin: 0;
   color: var(--gray3);
+  font-family: 'Madimi One', cursive;
+
 }
 
 h1,
@@ -17,7 +18,8 @@ h4,
 h5,
 h6 {
   margin: .5em 0 .5em;
-  font-family: 'Edu VIC WA NT Beginner', cursive;
+  /* font-family: 'Edu VIC WA NT Beginner', cursive; */
+  font-family: 'Madimi One', cursive;
 }
 
 p {
@@ -27,6 +29,10 @@ p {
 a {
   text-decoration: none;
   color: unset;
+}
+
+a.active {
+  text-decoration: underline;
 }
 
 

@@ -5,7 +5,7 @@ export function BookFilter({ onSetFilter, filterBy }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
 
-    console.log('filterByToEdit', filterByToEdit)
+    // console.log('filterByToEdit', filterByToEdit)
 
     useEffect(() => {
         onSetFilter(filterByToEdit)

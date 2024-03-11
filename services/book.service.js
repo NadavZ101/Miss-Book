@@ -396,6 +396,7 @@ function getDefaultFilter() {
 }
 
 function get(bookId) {
+    console.log('from service ', bookId)
     return storageService.get(BOOK_KEY, bookId)
 }
 
@@ -407,24 +408,16 @@ function save(book) {
     if (book.id) {
         return storageService.put(BOOK_KEY, book)
     } else {
+        // book = _createBook(book.title, book.listPrice.amount)
         return storageService.post(BOOK_KEY, book)
     }
 }
 
-function getEmptyBook(title = '', listPrice = 0) {
-    return { id: '', title, listPrice }
+function getEmptyBook(id = '', title = '', subtitle = '', authors = [], publishedDate = 1890, description = '', pageCount = 377, categories = [], thumbnail = '', language = '', listPrice = { amount: 0, currencyCode: '', isOnSale: true }) {
+
+    console.log('getEmptyBook - service')
+    return { id, title, subtitle, authors, publishedDate, description, pageCount, categories, thumbnail, language, listPrice }
 }
-
-
-// function getFilterBy() {
-//     return { ...filterBy }
-// }
-
-// function setFilterBy(filterBy = {}) {
-//     if (filterBy.title !== undefined) gFilterBy.title = filterBy.title
-//     if (filterBy.price !== undefined) gFilterBy.price = filterBy.price
-//     return filterBy
-// }
 
 
 function getNextBookId(bookId) {
@@ -807,8 +800,8 @@ function _createBooks() {
     }
 }
 
-function _createBook(title, listPrice = 120) {
-    const book = getEmptyBook(title, listPrice)
+function _createBook(title, price = 120) {
+    const book = getEmptyBook(title, price)
     book.id = utilService.makeId()
     return book
 }

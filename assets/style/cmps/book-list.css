@@ -12,9 +12,15 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color: var(--clr1bg);
+    background-color: var(--list);
     border-radius: 6px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.238);
+}
+
+.book-list li:hover {
+    scale: 1.03;
+
+    transition: scale 0.6s;
 }
 
 .book-list .book-actions {

@@ -1,9 +1,36 @@
 
-import { LongTxt } from "./LongTxt.jsx"
-import { utilService } from "../services/util.service.js"
+const { useParams, useNavigate } = ReactRouter
+const { useState, useEffect } = React
 
-export function BookDetails({ book, onGoBack }) {
-    console.log('Book Details: ', book)
+import { LongTxt } from "./LongTxt.jsx"
+
+import { bookService } from "../services/book.service.js"
+
+export function BookDetails() {
+
+    const params = useParams()
+    const [book, setBook] = useState(null)
+    const navigate = useNavigate()
+
+    console.log('params ', params)
+    console.log('book ', book)
+    console.log('useNavigate ', useNavigate)
+
+    useEffect(() => {
+        loadBook()
+    }, [params.bookId])
+
+    function loadBook() {
+        bookService.get(params.bookId)
+            .then(book => setBook(book))
+            .catch(err => {
+                console.log('Had issues loading car', err)
+            })
+    }
+
+    function onGoBack() {
+        navigate("/book")
+    }
 
     function setReadingStats() {
         let numOfPages = book.pageCount
@@ -33,13 +60,13 @@ export function BookDetails({ book, onGoBack }) {
         let categories = book.categories.join(', ')
         return categories
     }
-    getCategories()
 
     function isOnSale() {
         if (book.listPrice.isOnSale) return '📣📣📣'
         else return 'No'
     }
 
+    if (!book) return <div>Loading Book Details...</div>
     return <section className="book-details">
         <button onClick={onGoBack}>Go back</button>
 
@@ -61,22 +88,3 @@ export function BookDetails({ book, onGoBack }) {
     </section>
 }
 
-/*
-{
-    id: 'WBooB82Uvwu',
-    title: 'class',
-    subtitle: 'elit enim ultricies amet imperdiet a molestie class elementum venenatis',
-    authors: ['Danielle Steel'],
-    publishedDate: 1999,
-    description:
-        'rhoncus odio netus consectetur aenean hendrerit massa scelerisque elementum aptent lobortis pharetra maecenas quam nulla volutpat turpis non habitasse aenean ante sodales lobortis quisque libero imperdiet gravida eleifend nulla',
-    pageCount: 804,
-    categories: ['Computers', 'Hack'],
-    thumbnail: 'http://coding-academy.org/books-photos/10.jpg',
-    language: 'en',
-    listPrice: {
-        amount: 118,
-        currencyCode: 'ILS',
-        isOnSale: false,
-    },
-} */

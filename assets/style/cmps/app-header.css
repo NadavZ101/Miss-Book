@@ -7,7 +7,10 @@
   background-color: var(--clr1);
   color: var(--clr1bg);
   padding: 1em;
+}
 
+h1:hover {
+  cursor: pointer;
 }
 
 .nav-bar>* {
