@@ -6,8 +6,6 @@ import { Review } from "./Review.jsx"
 export function ReviewList({ book, review, onRemoveReview }) {
     console.log('review list - ', book)
 
-
-
     if (!book.reviews || !book.reviews.length) return <div>No Reviews for the book</div>
     return <ul className="review-list flex space-between">
         {

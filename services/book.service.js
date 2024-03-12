@@ -16,6 +16,8 @@ export const bookService = {
     getEmptyReview,
     addReview,
     removeReview,
+    addGoogleBook,
+    getGoogleBooks,
 }
 
 const gBooks = [{
@@ -839,6 +841,355 @@ function removeReview(bookId, reviewId) {
         })
         .then(save)
 }
+
+
+
+//adding books to my database - the destruction will be here
+// so the books from google will fit to my database 
+function addGoogleBook(item) {
+    console.log('service', item)
+    const items = [
+        {
+            kind: "books#volume",
+            id: "nBuA0hmspdMC",
+            etag: "PU1fOs3TeKQ",
+            selfLink: "https://www.googleapis.com/books/v1/volumes/nBuA0hmspdMC",
+            volumeInfo: {
+                title: "Effective JavaScript",
+                authors: [
+                    "David Herman"
+                ],
+                publisher: "Addison-Wesley",
+                publishedDate: "2012-11-26",
+                description: "“It’s uncommon to have a programming language wonk who can speak in such comfortable and friendly language as David does. His walk through the syntax and semantics of JavaScript is both charming and hugely insightful; reminders of gotchas complement realistic use cases, paced at a comfortable curve. You’ll find when you finish the book that you’ve gained a strong and comprehensive sense of mastery.” —Paul Irish, developer advocate, Google Chrome “This is not a book for those looking for shortcuts; rather it is hard-won experience distilled into a guided tour. It’s one of the few books on JS that I’ll recommend without hesitation.” —Alex Russell, TC39 member, software engineer, Google In order to truly master JavaScript, you need to learn how to work effectively with the language’s flexible, expressive features and how to avoid its pitfalls. No matter how long you’ve been writing JavaScript code, Effective JavaScript will help deepen your understanding of this powerful language, so you can build more predictable, reliable, and maintainable programs. Author David Herman, with his years of experience on Ecma’s JavaScript standardization committee, illuminates the language’s inner workings as never before—helping you take full advantage of JavaScript’s expressiveness. Reflecting the latest versions of the JavaScript standard, the book offers well-proven techniques and best practices you’ll rely on for years to come. Effective JavaScript is organized around 68 proven approaches for writing better JavaScript, backed by concrete examples. You’ll learn how to choose the right programming style for each project, manage unanticipated problems, and work more successfully with every facet of JavaScript programming from data structures to concurrency. Key features include Better ways to use prototype-based object-oriented programming Subtleties and solutions for working with arrays and dictionary objects Precise and practical explanations of JavaScript’s functions and variable scoping semantics Useful JavaScript programming patterns and idioms, such as options objects and method chaining In-depth guidance on using JavaScript’s unique “run-to-completion” approach to concurrency",
+                industryIdentifiers: [
+                    {
+                        type: "ISBN_13",
+                        identifier: "9780132902250"
+                    },
+                    {
+                        type: "ISBN_10",
+                        identifier: "0132902257"
+                    }
+                ],
+                readingModes: {
+                    text: true,
+                    image: true
+                },
+                pageCount: 231,
+                printType: "BOOK",
+                categories: [
+                    "Computers"
+                ],
+                averageRating: 5,
+                ratingsCount: 1,
+                maturityRating: "NOT_MATURE",
+                allowAnonLogging: true,
+                contentVersion: "2.13.10.0.preview.3",
+                panelizationSummary: {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                imageLinks: {
+                    "smallThumbnail": "http://books.google.com/books/content?id=nBuA0hmspdMC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=nBuA0hmspdMC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                },
+                language: "en",
+                previewLink: "http://books.google.com/books?id=nBuA0hmspdMC&printsec=frontcover&dq=effective%2520javascript&hl=&as_pt=BOOKS&cd=1&source=gbs_api",
+                infoLink: "http://books.google.com/books?id=nBuA0hmspdMC&dq=effective%2520javascript&hl=&as_pt=BOOKS&source=gbs_api",
+                canonicalVolumeLink: "https://books.google.com/books/about/Effective_JavaScript.html?hl=&id=nBuA0hmspdMC"
+            },
+            saleInfo: {
+                country: "IL",
+                saleability: "NOT_FOR_SALE",
+                isEbook: false
+            },
+            accessInfo: {
+                country: "IL",
+                viewability: "PARTIAL",
+                embeddable: true,
+                publicDomain: false,
+                textToSpeechPermission: "ALLOWED_FOR_ACCESSIBILITY",
+                epub: {
+                    isAvailable: false
+                },
+                pdf: {
+                    isAvailable: false
+                },
+                webReaderLink: "http://play.google.com/books/reader?id=nBuA0hmspdMC&hl=&as_pt=BOOKS&source=gbs_api",
+                "accessViewStatus": "SAMPLE",
+                "quoteSharingAllowed": false
+            },
+            searchInfo: {
+                textSnippet: "You’ll find when you finish the book that you’ve gained a strong and comprehensive sense of mastery.” —Paul Irish, developer advocate, Google Chrome “This is not a book for those looking for shortcuts; rather it is hard-won ..."
+            }
+        },
+        {
+            kind: "books#volume",
+            id: "qBiEjwEACAAJ",
+            etag: "nd1MYZQCodw",
+            selfLink: "https://www.googleapis.com/books/v1/volumes/qBiEjwEACAAJ",
+            volumeInfo: {
+                title: "Effective JavaScript",
+                subtitle: "68 Specific Ways to Harness the Power of JavaScript",
+                publishedDate: "2013",
+                description: "Provides information on how to write better JavaScript programs, covering such topics as functions, arrays, library and API design, and concurrency.",
+                industryIdentifiers: [
+                    {
+                        type: "ISBN_10",
+                        identifier: "0132902281"
+                    },
+                    {
+                        type: "ISBN_13",
+                        identifier: "9780132902281"
+                    }
+                ],
+                readingModes: {
+                    text: false,
+                    image: false
+                },
+                pageCount: 206,
+                printType: "BOOK",
+                categories: [
+                    "JavaScript (Computer program language)"
+                ],
+                maturityRating: "NOT_MATURE",
+                allowAnonLogging: false,
+                contentVersion: "preview-1.0.0",
+                language: "en",
+                previewLink: "http://books.google.com/books?id=qBiEjwEACAAJ&dq=effective%2520javascript&hl=&as_pt=BOOKS&cd=2&source=gbs_api",
+                infoLink: "http://books.google.com/books?id=qBiEjwEACAAJ&dq=effective%2520javascript&hl=&as_pt=BOOKS&source=gbs_api",
+                canonicalVolumeLink: "https://books.google.com/books/about/Effective_JavaScript.html?hl=&id=qBiEjwEACAAJ"
+            },
+            saleInfo: {
+                country: "IL",
+                saleability: "NOT_FOR_SALE",
+                isEbook: false
+            },
+            accessInfo: {
+                country: "IL",
+                viewability: "NO_PAGES",
+                embeddable: false,
+                publicDomain: false,
+                textToSpeechPermission: "ALLOWED",
+                epub: {
+                    isAvailable: false
+                },
+                pdf: {
+                    isAvailable: false
+                },
+                webReaderLink: "http://play.google.com/books/reader?id=qBiEjwEACAAJ&hl=&as_pt=BOOKS&source=gbs_api",
+                accessViewStatus: "NONE",
+                quoteSharingAllowed: false
+            },
+            searchInfo: {
+                textSnippet: "Provides information on how to write better JavaScript programs, covering such topics as functions, arrays, library and API design, and concurrency."
+            }
+        }
+    ]
+    console.log(items)
+    const cleanData = setGoogleBook(items)
+    console.log(cleanData)
+
+
+    // const [id, volumeInfo] = items
+    // console.log('id', id)
+    // console.log('volumeInfo', volumeInfo)
+}
+
+function setGoogleBook(items) {
+    const [{ id }] = items
+    const [{ volumeInfo }] = items
+    const { title } = volumeInfo
+    const { authors } = volumeInfo
+    const { publishedDate } = volumeInfo
+    const { description } = volumeInfo
+    const { pageCount } = volumeInfo
+    const { categories } = volumeInfo
+    const { imageLinks } = volumeInfo
+    const { thumbnail } = imageLinks
+    const { language } = volumeInfo
+
+    return { id, title, authors, publishedDate, description, pageCount, categories, thumbnail, language }
+
+
+    console.log(id)
+    console.log(title)
+    console.log(authors)
+    console.log(publishedDate)
+    console.log(description)
+    console.log(pageCount)
+    console.log(categories)
+    console.log(thumbnail)
+    console.log(language)
+    //subtitle = '',, , listPrice = { amount: 0, currencyCode: '', isOnSale: true }
+}
+
+//input in form
+function getGoogleBooks(bookTitle) {
+
+    const items = [
+        {
+            kind: "books#volume",
+            id: "nBuA0hmspdMC",
+            etag: "PU1fOs3TeKQ",
+            selfLink: "https://www.googleapis.com/books/v1/volumes/nBuA0hmspdMC",
+            volumeInfo: {
+                title: "Effective JavaScript",
+                authors: [
+                    "David Herman"
+                ],
+                publisher: "Addison-Wesley",
+                publishedDate: "2012-11-26",
+                description: "“It’s uncommon to have a programming language wonk who can speak in such comfortable and friendly language as David does. His walk through the syntax and semantics of JavaScript is both charming and hugely insightful; reminders of gotchas complement realistic use cases, paced at a comfortable curve. You’ll find when you finish the book that you’ve gained a strong and comprehensive sense of mastery.” —Paul Irish, developer advocate, Google Chrome “This is not a book for those looking for shortcuts; rather it is hard-won experience distilled into a guided tour. It’s one of the few books on JS that I’ll recommend without hesitation.” —Alex Russell, TC39 member, software engineer, Google In order to truly master JavaScript, you need to learn how to work effectively with the language’s flexible, expressive features and how to avoid its pitfalls. No matter how long you’ve been writing JavaScript code, Effective JavaScript will help deepen your understanding of this powerful language, so you can build more predictable, reliable, and maintainable programs. Author David Herman, with his years of experience on Ecma’s JavaScript standardization committee, illuminates the language’s inner workings as never before—helping you take full advantage of JavaScript’s expressiveness. Reflecting the latest versions of the JavaScript standard, the book offers well-proven techniques and best practices you’ll rely on for years to come. Effective JavaScript is organized around 68 proven approaches for writing better JavaScript, backed by concrete examples. You’ll learn how to choose the right programming style for each project, manage unanticipated problems, and work more successfully with every facet of JavaScript programming from data structures to concurrency. Key features include Better ways to use prototype-based object-oriented programming Subtleties and solutions for working with arrays and dictionary objects Precise and practical explanations of JavaScript’s functions and variable scoping semantics Useful JavaScript programming patterns and idioms, such as options objects and method chaining In-depth guidance on using JavaScript’s unique “run-to-completion” approach to concurrency",
+                industryIdentifiers: [
+                    {
+                        type: "ISBN_13",
+                        identifier: "9780132902250"
+                    },
+                    {
+                        type: "ISBN_10",
+                        identifier: "0132902257"
+                    }
+                ],
+                readingModes: {
+                    text: true,
+                    image: true
+                },
+                pageCount: 231,
+                printType: "BOOK",
+                categories: [
+                    "Computers"
+                ],
+                averageRating: 5,
+                ratingsCount: 1,
+                maturityRating: "NOT_MATURE",
+                allowAnonLogging: true,
+                contentVersion: "2.13.10.0.preview.3",
+                panelizationSummary: {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                imageLinks: {
+                    "smallThumbnail": "http://books.google.com/books/content?id=nBuA0hmspdMC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=nBuA0hmspdMC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                },
+                language: "en",
+                previewLink: "http://books.google.com/books?id=nBuA0hmspdMC&printsec=frontcover&dq=effective%2520javascript&hl=&as_pt=BOOKS&cd=1&source=gbs_api",
+                infoLink: "http://books.google.com/books?id=nBuA0hmspdMC&dq=effective%2520javascript&hl=&as_pt=BOOKS&source=gbs_api",
+                canonicalVolumeLink: "https://books.google.com/books/about/Effective_JavaScript.html?hl=&id=nBuA0hmspdMC"
+            },
+            saleInfo: {
+                country: "IL",
+                saleability: "NOT_FOR_SALE",
+                isEbook: false
+            },
+            accessInfo: {
+                country: "IL",
+                viewability: "PARTIAL",
+                embeddable: true,
+                publicDomain: false,
+                textToSpeechPermission: "ALLOWED_FOR_ACCESSIBILITY",
+                epub: {
+                    isAvailable: false
+                },
+                pdf: {
+                    isAvailable: false
+                },
+                webReaderLink: "http://play.google.com/books/reader?id=nBuA0hmspdMC&hl=&as_pt=BOOKS&source=gbs_api",
+                "accessViewStatus": "SAMPLE",
+                "quoteSharingAllowed": false
+            },
+            searchInfo: {
+                textSnippet: "You’ll find when you finish the book that you’ve gained a strong and comprehensive sense of mastery.” —Paul Irish, developer advocate, Google Chrome “This is not a book for those looking for shortcuts; rather it is hard-won ..."
+            }
+        },
+        {
+            kind: "books#volume",
+            id: "qBiEjwEACAAJ",
+            etag: "nd1MYZQCodw",
+            selfLink: "https://www.googleapis.com/books/v1/volumes/qBiEjwEACAAJ",
+            volumeInfo: {
+                title: "Effective JavaScript",
+                subtitle: "68 Specific Ways to Harness the Power of JavaScript",
+                publishedDate: "2013",
+                description: "Provides information on how to write better JavaScript programs, covering such topics as functions, arrays, library and API design, and concurrency.",
+                industryIdentifiers: [
+                    {
+                        type: "ISBN_10",
+                        identifier: "0132902281"
+                    },
+                    {
+                        type: "ISBN_13",
+                        identifier: "9780132902281"
+                    }
+                ],
+                readingModes: {
+                    text: false,
+                    image: false
+                },
+                pageCount: 206,
+                printType: "BOOK",
+                categories: [
+                    "JavaScript (Computer program language)"
+                ],
+                maturityRating: "NOT_MATURE",
+                allowAnonLogging: false,
+                contentVersion: "preview-1.0.0",
+                language: "en",
+                previewLink: "http://books.google.com/books?id=qBiEjwEACAAJ&dq=effective%2520javascript&hl=&as_pt=BOOKS&cd=2&source=gbs_api",
+                infoLink: "http://books.google.com/books?id=qBiEjwEACAAJ&dq=effective%2520javascript&hl=&as_pt=BOOKS&source=gbs_api",
+                canonicalVolumeLink: "https://books.google.com/books/about/Effective_JavaScript.html?hl=&id=qBiEjwEACAAJ"
+            },
+            saleInfo: {
+                country: "IL",
+                saleability: "NOT_FOR_SALE",
+                isEbook: false
+            },
+            accessInfo: {
+                country: "IL",
+                viewability: "NO_PAGES",
+                embeddable: false,
+                publicDomain: false,
+                textToSpeechPermission: "ALLOWED",
+                epub: {
+                    isAvailable: false
+                },
+                pdf: {
+                    isAvailable: false
+                },
+                webReaderLink: "http://play.google.com/books/reader?id=qBiEjwEACAAJ&hl=&as_pt=BOOKS&source=gbs_api",
+                accessViewStatus: "NONE",
+                quoteSharingAllowed: false
+            },
+            searchInfo: {
+                textSnippet: "Provides information on how to write better JavaScript programs, covering such topics as functions, arrays, library and API design, and concurrency."
+            }
+        }
+    ]
+    console.log('service - bookTitle ', bookTitle)
+
+    const results = items.filter(item =>
+        item.volumeInfo.title.toLowerCase().includes(bookTitle))
+
+    console.log(results)
+    console.log(results.length)
+
+    if (results.length > 0) {
+        console.log(results)
+        console.log('service found books')
+        return Promise.resolve(results)
+    }
+    else {
+        console.error('service didn\'t books')
+        return Promise.reject(new Error('No matching books found'))
+    }
+}
+
+
+
+
+
 
 
 
