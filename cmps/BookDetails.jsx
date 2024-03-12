@@ -4,6 +4,7 @@ const { useState, useEffect } = React
 
 import { LongTxt } from "./LongTxt.jsx"
 import { AddReview } from "./AddReview.jsx"
+import { ReviewList } from "./ReviewList.jsx"
 
 import { bookService } from "../services/book.service.js"
 
@@ -25,6 +26,26 @@ export function BookDetails() {
             .then(book => setBook(book))
             .catch(err => {
                 console.log('Had issues loading book', err)
+            })
+    }
+
+    function onLoadReview(review) {
+        bookService.addReview(book.id, review)
+            .then((updatedBook) => {
+                console.log(review)
+                console.log(updatedBook)
+                // if (!book.reviews) book.reviews = []
+                // const updatedReviews = [...updatedBook.reviews, review]
+                setBook(updatedBook)
+            })
+    }
+
+    function onRemoveReview(reviewId) {
+        console.log(reviewId)
+        bookService.removeReview(book.id, reviewId)
+            .then((updatedBook) => {
+                console.log(updatedBook)
+                setBook(updatedBook)
             })
     }
 
@@ -68,8 +89,6 @@ export function BookDetails() {
     return <section className="book-details">
         <button onClick={onGoBack}>Go back</button>
 
-        <AddReview book={book} />
-
         <h1>Title: {book.title}</h1>
         <h5>Id: {book.id}</h5>
         <h5>Authors: {book.authors}</h5>
@@ -85,7 +104,16 @@ export function BookDetails() {
 
         <LongTxt txt={book.description} length={book.description.length} />
 
+        <AddReview
+            book={book}
+            onLoadReview={onLoadReview}
+            onRemoveReview={onRemoveReview} />
 
+        {book.reviews && book.reviews.length && (
+            <ReviewList
+                book={book}
+                onRemoveReview={onRemoveReview} />
+        )}
     </section>
 }
 

@@ -3,18 +3,16 @@ const { useState, useEffect } = React
 import { Review } from "./Review.jsx"
 
 
-export function ReviewList({ book }) {
+export function ReviewList({ book, review, onRemoveReview }) {
     console.log('review list - ', book)
 
-    if (!book.reviews || !book.reviews.length) return <div>No Reviews for the book</div>
-    return <ul className="review-list">
-        {
-            book.reviews.map(review => <li key={book.fullname}>
-                <Review review={review} />
 
-                {/* <div className="review-actions">
-                    <button className="remove-btn" onClick={() => onRemoveReview(book.id)}>X</button>
-                </div> */}
+
+    if (!book.reviews || !book.reviews.length) return <div>No Reviews for the book</div>
+    return <ul className="review-list flex space-between">
+        {
+            book.reviews.map((review, i) => <li key={i}>
+                <Review review={review} onRemoveReview={onRemoveReview} />
             </li>)
         }
     </ul>

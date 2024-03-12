@@ -15,6 +15,7 @@ export const bookService = {
     getDefaultFilter,
     getEmptyReview,
     addReview,
+    removeReview,
 }
 
 const gBooks = [{
@@ -398,7 +399,6 @@ function getDefaultFilter() {
 }
 
 function get(bookId) {
-    console.log('from service ', bookId)
     return storageService.get(BOOK_KEY, bookId)
 }
 
@@ -808,48 +808,37 @@ function _createBook(title, price = 120) {
     return book
 }
 
-function getEmptyReview(fullname = '', rating = 1, readAt = '') {
-    return { fullname, rating, readAt }
+function getEmptyReview(id = utilService.makeId(), fullname = '', rating = 1, readAt = '') {
+    return { id, fullname, rating, readAt }
 }
 
 function addReview(bookId, review) {
-    // console.log('addReview - bookId', bookId)
-    // console.log('addReview - review', review)
-    storageService.get(BOOK_KEY, bookId)
+    console.log(bookId)
+    console.log(review)
+
+    return get(bookId)
         .then(book => {
-            if (!book.reviews) {
-                book.reviews = []
-            }
+            if (!book.reviews) book.reviews = []
             book.reviews.push(review)
-            return storageService.put(BOOK_KEY, book)
+            console.log('addReview ', book)
+            return book
         })
-        // .then(book => {
-        //     console.log('Review added successfully', book)
-        //     console.log(book)
-
-        //     new Promise((resolve, reject) => {
-        //         resolve(book)
-        //     })
-        // })
-        .catch(err => {
-            console.log('Coudlnt save review in storage', err)
-            throw err
-        })
+        .then(save)
 }
 
-/*
-{
-    "id": "OXeMG8wNskc",
-    "title": "metus hendrerit",
-    "description": "placerat nisi sodales suscipit tellus",
-    "thumbnail": “http://coding-academy.org/books-photos/
-    20.jpg",
-    "listPrice": {
-    "amount": 109,
-    "currencyCode": "EUR",
-    "isOnSale": false
-    }
+function removeReview(bookId, reviewId) {
+    console.log(bookId)
+    console.log(reviewId)
+
+    return get(bookId)
+        .then(book => {
+            if (!book.reviews) return
+            const reviewToRemove = book.reviews.findIndex(review => review.id === reviewId)
+            book.reviews.splice(reviewToRemove, 1)
+            return book
+        })
+        .then(save)
 }
-*/
+
 
 

@@ -1,32 +1,36 @@
-const { useState } = React
+const { useState, useEffect } = React
 
 import { ReviewList } from './ReviewList.jsx'
 
 import { bookService } from "../services/book.service.js"
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 
-export function AddReview({ book }) {
+export function AddReview({ book, onLoadReview, onRemoveReview }) {
     console.log('Add review ', book)
 
     const [review, setReview] = useState(bookService.getEmptyReview())
-    console.log(review)
+    // console.log(review)
+
 
     function handleChange(ev, target) {
-        const { name, value } = ev.target
+        const { name: field, value } = ev.target
 
-        console.log('name ', name)
+        console.log('name ', field)
         console.log('value ', value)
 
-        setReview((prevReviews) => ({ ...prevReviews, [name]: value, }))
+        console.log(review)
+
+
+        setReview((prevReviews) => ({ ...prevReviews, [field]: value, }))
+        console.log(prevReviews)
+
     }
 
     function onSaveReview(ev) {
         ev.preventDefault()
-
-        bookService.addReview(book.id, review)
-            .then(book => {
-                console.log(book)
-            })
+        onLoadReview(review)
     }
+
 
     const { fullname, rating, readAt } = review
     return (
@@ -70,7 +74,7 @@ export function AddReview({ book }) {
                 <button type="submit">Submit</button>
             </form>
 
-            <ReviewList book={book} />
+
         </section>
     )
 }
