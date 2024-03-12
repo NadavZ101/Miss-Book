@@ -815,22 +815,26 @@ function getEmptyReview(fullname = '', rating = 1, readAt = '') {
 function addReview(bookId, review) {
     // console.log('addReview - bookId', bookId)
     // console.log('addReview - review', review)
-
     storageService.get(BOOK_KEY, bookId)
         .then(book => {
-            if (book.reviews) {
-                console.log('adding review')
-                book.reviews.push(review)
-            }
-            else {
+            if (!book.reviews) {
                 book.reviews = []
-                book.reviews.push(review)
             }
-            console.log(book)
-
-            // return storageService.put(BOOK_KEY, book)
+            book.reviews.push(review)
+            return storageService.put(BOOK_KEY, book)
         })
+        // .then(book => {
+        //     console.log('Review added successfully', book)
+        //     console.log(book)
 
+        //     new Promise((resolve, reject) => {
+        //         resolve(book)
+        //     })
+        // })
+        .catch(err => {
+            console.log('Coudlnt save review in storage', err)
+            throw err
+        })
 }
 
 /*

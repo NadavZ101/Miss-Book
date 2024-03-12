@@ -68,6 +68,8 @@ export function BookDetails() {
     return <section className="book-details">
         <button onClick={onGoBack}>Go back</button>
 
+        <AddReview book={book} />
+
         <h1>Title: {book.title}</h1>
         <h5>Id: {book.id}</h5>
         <h5>Authors: {book.authors}</h5>
@@ -83,7 +85,6 @@ export function BookDetails() {
 
         <LongTxt txt={book.description} length={book.description.length} />
 
-        <AddReview book={book} />
 
     </section>
 }

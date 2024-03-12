@@ -1,5 +1,7 @@
 const { useState } = React
 
+import { ReviewList } from './ReviewList.jsx'
+
 import { bookService } from "../services/book.service.js"
 
 export function AddReview({ book }) {
@@ -29,6 +31,7 @@ export function AddReview({ book }) {
     const { fullname, rating, readAt } = review
     return (
         <section className="review">
+            <h4>Add Review</h4>
             <form onSubmit={onSaveReview}>
                 <label htmlFor="fullname">Full Name:</label>
                 <input
@@ -66,6 +69,8 @@ export function AddReview({ book }) {
 
                 <button type="submit">Submit</button>
             </form>
+
+            <ReviewList book={book} />
         </section>
     )
 }
